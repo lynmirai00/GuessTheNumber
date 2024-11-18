@@ -1,74 +1,108 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from "react";
+import { View, Text, Button, TouchableOpacity, StyleSheet } from "react-native";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const App = () => {
+  const lines = Array.from({ length: 50 }); // Số lượng dòng tùy theo độ cao màn hình
 
-export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#fdf5e6", // Nền màu kem
+          padding: 10,
+        }}
+      >
+        {/* Đường kẻ ngang */}
+        {lines.map((_, index) => (
+          <View
+            key={index}
+            style={{
+              width: "100%",
+              height: 1,
+              backgroundColor: "#d3d3d3", // Màu đường kẻ ngang
+              marginBottom: 35, // Khoảng cách giữa các dòng
+            }}
+          />
+        ))}
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+        {/* Tiêu đề trò chơi */}
+        <Text
+          style={{
+            fontFamily: "PlaywriteHRLijeva",
+            fontSize: 35,
+            position: "absolute",
+            top: 95, // Đặt vị trí cách trên cùng 20px
+            textAlign: "center",
+          }}
+        >
+          Guess the Number
+        </Text>
+
+        {/* Phần giới thiệu trò chơi */}
+        <Text
+          style={{
+            fontFamily: "PlaywriteHRLijeva",
+            fontSize: 18,
+            position: "absolute",
+            textAlign: "center",
+            top: 210, // Đặt vị trí cách trên cùng 80px
+            paddingHorizontal: 20,
+          }}
+        >
+          Hãy đoán một số có 4 chữ số. Mỗi lần đoán, hệ thống sẽ chỉ cho bạn con
+          số nào đang đứng đúng vị trí. Bạn có thể đoán đúng không? Hãy thử sức
+          và kiểm tra lịch sử nhé!
+        </Text>
+
+        {/* Nút "Start Game" */}
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            backgroundColor: "transparent",
+            padding: 15,
+            borderRadius: 8,
+            borderColor: "black",
+            borderWidth: 1,
+            width: 300,
+            height: 60,
+            top: 450, // Khoảng cách từ phần giới thiệu đến nút "Start Game"
+            alignItems: "center",
+          }}
+          onPress={() => alert("Start Game")}
+        >
+          <Text style={{ fontFamily: "PlaywriteHRLijeva", fontSize: 30, position: "absolute" }}>
+            Start Game
+          </Text>
+        </TouchableOpacity>
+  
+        {/* Nút "History" */}
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            backgroundColor: "transparent",
+            padding: 15,
+            borderRadius: 8,
+            borderColor: "black",
+            borderWidth: 1,
+            top: 450, // Khoảng cách từ nút "Start Game" đến nút "History"
+            width: 300,
+            height: 60,
+            alignItems: "center",
+            marginTop: 110, // Khoảng cách từ nút "Start Game" đến nút "History"
+          }}
+          onPress={() => alert("History")}
+        >
+          <Text style={{ fontFamily: "PlaywriteHRLijeva", fontSize: 30, position: "absolute" }}>
+            History
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
+};
+
+export default App;
