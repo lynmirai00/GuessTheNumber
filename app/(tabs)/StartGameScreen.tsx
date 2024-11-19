@@ -21,13 +21,14 @@ const StartGameScreen = () => {
   const [hiddenNumber, setHiddenNumber] = useState(generateRandomNumber());
   const [guess, setGuess] = useState(""); // Số người chơi đoán
   const [result, setResult] = useState(""); // Kết quả kiểm tra
+  const [attempts, setAttempts] = useState(0);
 
   const checkGuess = () => {
     if (guess.length !== 4 || isNaN(Number(guess))) {
       Alert.alert("Error", "Please enter a number with exactly 4 digits!");
       return;
     }
-
+    setAttempts((prev) => prev + 1);
     let correctDigits = 0;
     for (let i = 0; i < 4; i++) {
       if (guess[i] === hiddenNumber[i]) {
@@ -38,11 +39,12 @@ const StartGameScreen = () => {
     if (guess === hiddenNumber) {
       Alert.alert(
         "Congratulations!",
-        `This number is ${hiddenNumber}\nYou guessed the secret number correctly! 🎉`
+        `This number is ${hiddenNumber}\nYou guessed it in ${attempts + 1} attempts! 🎉`
       );
       setHiddenNumber(generateRandomNumber()); // Tạo số mới để chơi tiếp
       setGuess("");
       setResult("");
+      setAttempts(0);
     } else {
       setResult(`${correctDigits} correct digits`);
     }
@@ -164,7 +166,7 @@ const StartGameScreen = () => {
             style={{
               fontFamily: "PlaywriteHRLijeva",
               fontSize: 18,
-              top: 560, // Khoảng cách từ nút "Start Game" đến kết quả kiểm tra
+              top: 570, // Khoảng cách từ nút "Start Game" đến kết quả kiểm tra
               position: "absolute",
               color: "#333",
             }}
