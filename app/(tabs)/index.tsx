@@ -1,9 +1,18 @@
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import { View, Text, Button, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import StartGameScreen from "./StartGameScreen";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-const App = () => {
-  const lines = Array.from({ length: 50 }); // Số lượng dòng tùy theo độ cao màn hình
+const Stack = createNativeStackNavigator();
+type HomeProps = {
+  navigation: NativeStackNavigationProp<any>;
+};
+
+const HomeScreen = ({ navigation }: HomeProps) => {
+  const screenHeight = Dimensions.get("window").height;
+  const lines = Array.from({ length: Math.ceil(screenHeight / 30) });
 
   return (
     <SafeAreaProvider>
@@ -24,7 +33,7 @@ const App = () => {
               width: "100%",
               height: 1,
               backgroundColor: "#d3d3d3", // Màu đường kẻ ngang
-              marginBottom: 35, // Khoảng cách giữa các dòng
+              marginBottom: 30, // Khoảng cách giữa các dòng
             }}
           />
         ))}
@@ -35,7 +44,7 @@ const App = () => {
             fontFamily: "PlaywriteHRLijeva",
             fontSize: 35,
             position: "absolute",
-            top: 95, // Đặt vị trí cách trên cùng 20px
+            top: 150, // Đặt vị trí cách trên cùng 20px
             textAlign: "center",
           }}
         >
@@ -49,13 +58,13 @@ const App = () => {
             fontSize: 18,
             position: "absolute",
             textAlign: "center",
-            top: 210, // Đặt vị trí cách trên cùng 80px
+            top: 270, // Đặt vị trí cách trên cùng 80px
             paddingHorizontal: 20,
           }}
         >
-          Hãy đoán một số có 4 chữ số. Mỗi lần đoán, hệ thống sẽ chỉ cho bạn con
-          số nào đang đứng đúng vị trí. Bạn có thể đoán đúng không? Hãy thử sức
-          và kiểm tra lịch sử nhé!
+          Guess a 4-digit number. Each time you guess, the system will show you
+          which number is in the correct position. Can you guess correctly? Try
+          and check your history!
         </Text>
 
         {/* Nút "Start Game" */}
@@ -69,39 +78,40 @@ const App = () => {
             borderWidth: 1,
             width: 300,
             height: 60,
-            top: 450, // Khoảng cách từ phần giới thiệu đến nút "Start Game"
+            top: 500, // Khoảng cách từ phần giới thiệu đến nút "Start Game"
             alignItems: "center",
           }}
-          onPress={() => alert("Start Game")}
+          onPress={() => navigation.navigate("StartGameScreen")}
         >
-          <Text style={{ fontFamily: "PlaywriteHRLijeva", fontSize: 30, position: "absolute" }}>
+          <Text
+            style={{
+              fontFamily: "PlaywriteHRLijeva",
+              fontSize: 30,
+              position: "absolute",
+            }}
+          >
             Start Game
-          </Text>
-        </TouchableOpacity>
-  
-        {/* Nút "History" */}
-        <TouchableOpacity
-          style={{
-            position: "absolute",
-            backgroundColor: "transparent",
-            padding: 15,
-            borderRadius: 8,
-            borderColor: "black",
-            borderWidth: 1,
-            top: 450, // Khoảng cách từ nút "Start Game" đến nút "History"
-            width: 300,
-            height: 60,
-            alignItems: "center",
-            marginTop: 110, // Khoảng cách từ nút "Start Game" đến nút "History"
-          }}
-          onPress={() => alert("History")}
-        >
-          <Text style={{ fontFamily: "PlaywriteHRLijeva", fontSize: 30, position: "absolute" }}>
-            History
           </Text>
         </TouchableOpacity>
       </SafeAreaView>
     </SafeAreaProvider>
+  );
+};
+
+const App = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="StartGameScreen"
+        component={StartGameScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 };
 
