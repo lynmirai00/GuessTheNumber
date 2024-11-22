@@ -63,8 +63,7 @@ const HomeScreen = ({ navigation }: HomeProps) => {
           }}
         >
           Guess a 4-digit number. Each time you guess, the system will show you
-          which number is in the correct position. Can you guess correctly? Try
-          and check your history!
+          which number is in the correct position. Can you guess correctly? Try it!
         </Text>
 
         {/* Nút "Start Game" */}
