@@ -3,9 +3,7 @@ import {
   View,
   Text,
   Alert,
-  Button,
   TextInput,
-  StyleSheet,
   TouchableOpacity,
   Dimensions,
 } from "react-native";
@@ -25,7 +23,7 @@ const StartGameScreen = () => {
 
   const checkGuess = () => {
     if (guess.length !== 4 || isNaN(Number(guess))) {
-      Alert.alert("Error", "Please enter a number with exactly 4 digits!");
+      Alert.alert("エーラ", "4桁の数字を入力してください！");
       return;
     }
     setAttempts((prev) => prev + 1);
@@ -38,15 +36,15 @@ const StartGameScreen = () => {
 
     if (guess === hiddenNumber) {
       Alert.alert(
-        "Congratulations!",
-        `This number is ${hiddenNumber}\nYou guessed it in ${attempts + 1} attempts! 🎉`
+        "おめでとうございます！",
+        `この数字は${hiddenNumber}です。\n${attempts + 1}回の試行で当たりです！ 🎉`
       );
       setHiddenNumber(generateRandomNumber()); // Tạo số mới để chơi tiếp
       setGuess("");
       setResult("");
       setAttempts(0);
     } else {
-      setResult(`${correctDigits} correct digits`);
+      setResult(`正しい位置：${correctDigits}`);
     }
   };
 
@@ -118,7 +116,7 @@ const StartGameScreen = () => {
           onChangeText={setGuess}
           keyboardType="numeric"
           maxLength={4}
-          placeholder="Enter your number"
+          placeholder="数字を入力してください"
         />
 
 <Text

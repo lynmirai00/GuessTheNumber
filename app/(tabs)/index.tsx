@@ -62,8 +62,10 @@ const HomeScreen = ({ navigation }: HomeProps) => {
             paddingHorizontal: 20,
           }}
         >
-          Guess a 4-digit number. Each time you guess, the system will show you
-          which number is in the correct position. Can you guess correctly? Try it!
+          4桁の数字を当ててみてください。{"\n"}
+          毎回予想するたびに、システムはどの数字が正しい位置にあるかを教えてくれます。{"\n"}
+          正解を見つけられますか？{"\n"}
+          挑戦してみてください！
         </Text>
 
         {/* Nút "Start Game" */}
